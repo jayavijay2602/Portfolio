@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jayavijay | Cybersecurity Portfolio</title>
+  <meta name="description" content="Cybersecurity portfolio of Jayavijay — TryHackMe progress, badges, completed rooms, and skills matrix." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: #0f1520;
+      --muted: #9fb0c3;
+      --text: #e6eef8;
+      --brand: #5aa7ff;
+      --accent: #3dd68c;
+      --warn: #ffb057;
+      --danger: #ff6b6b;
+      --ring: rgba(90,167,255,.3);
+      --radius: 18px;
+      --shadow: 0 8px 30px rgba(0,0,0,.45);
+    }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#f6f8fb; --panel:#ffffff; --text:#0e1726; --muted:#475569; --ring:rgba(20,110,255,.2); --shadow:0 10px 30px rgba(16,24,40,.08)}
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:radial-gradient(1200px 1200px at 120% -20%, rgba(90,167,255,.12), transparent 40%), radial-gradient(1000px 800px at -20% 0%, rgba(61,214,140,.08), transparent 40%), var(--bg)}
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrapper{max-width:1100px; margin:0 auto; padding:28px}
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(170%) blur(8px); background:linear-gradient(to bottom, rgba(11,15,20,.9), rgba(11,15,20,.6), transparent);}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg, var(--brand), var(--accent)); box-shadow:0 6px 18px var(--ring)}
+    .brand h1{font-size:18px; margin:0}
+    .menu{display:flex; gap:16px}
+    .menu a{padding:8px 12px; border-radius:12px}
+    .menu a:hover{background:rgba(255,255,255,.06)}
+
+    /* hero */
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center; padding:24px 0 10px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .hero .intro{padding:26px}
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,.05); padding:6px 10px; border-radius:999px}
+    .intro h2{font-size:38px; line-height:1.1; margin:14px 0 12px}
+    .intro p{color:var(--muted); margin:0 0 16px}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid rgba(255,255,255,.08); background:var(--panel); box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), #7fc3ff); color:#07213d; border:0; font-weight:700}
+    .btn.ghost{background:transparent}
+    .avatar{aspect-ratio:1/1; border-radius:16px; overflow:hidden}
+    .avatar img{width:100%; height:100%; object-fit:cover}
+
+    /* stats */
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px}
+    .stat{padding:18px}
+    .stat h3{margin:0; font-size:28px}
+    .stat p{margin:6px 0 0; color:var(--muted); font-size:13px}
+
+    /* sections */
+    section{margin:34px 0}
+    section h3{font-size:26px; margin:0 0 14px}
+    .grid{display:grid; gap:16px}
+    .grid.rooms{grid-template-columns:repeat(3,1fr)}
+    .grid.badges{grid-template-columns:repeat(6,1fr)}
+
+    .room,.badge{padding:16px}
+    .room h4{margin:8px 0 6px; font-size:16px}
+    .room p{margin:0; color:var(--muted); font-size:13px}
+    .tag{display:inline-block; font-size:11px; letter-spacing:.02em; color:#08392a; background:linear-gradient(180deg, #78f1be, #3dd68c); padding:4px 8px; border-radius:999px; border:1px solid rgba(0,0,0,.06)}
+
+    .badge img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.08)}
+    .badge p{margin:8px 0 0; font-size:13px; color:var(--muted); text-align:center}
+
+    /* skills matrix */
+    .skills{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+    .skill{padding:16px}
+    .skill h4{margin:0 0 10px}
+    .bar{height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; border:1px solid rgba(255,255,255,.08)}
+    .bar > span{display:block; height:100%; background:linear-gradient(90deg, var(--accent), var(--brand)); width:40%}
+    .skill small{display:block; color:var(--muted); margin-top:8px}
+
+    /* footer */
+    footer{margin:40px 0 10px; color:var(--muted); text-align:center}
+
+    /* responsive */
+    @media (max-width: 960px){
+      .hero{grid-template-columns:1fr}
+      .grid.rooms{grid-template-columns:repeat(2,1fr)}
+      .grid.badges{grid-template-columns:repeat(4,1fr)}
+      .skills{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 600px){
+      .grid.rooms{grid-template-columns:1fr}
+      .grid.badges{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrapper nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <h1>Jayavijay<span style="opacity:.65"> — Cybersecurity</span></h1>
+      </div>
+      <nav class="menu">
+        <a href="#rooms">Rooms</a>
+        <a href="#badges">Badges</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="intro card">
+        <span class="eyebrow">Cybersecurity Student • TryHackMe</span>
+        <h2>Hi, I’m <span style="color:var(--brand)">Jayavijay</span>. I break things to learn and fix them to secure.</h2>
+        <p>
+          This is my portfolio—showcasing my <strong>TryHackMe</strong> progress (rooms & badges), and a concise <strong>skills matrix</strong>. I’m currently pursuing BSc CS and following a Cyber Forensics & InfoSec roadmap.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#rooms">View Completed Rooms</a>
+          <a class="btn ghost" href="#skills">See Skills Matrix</a>
+          <!-- TODO: Replace the # link below with your real TryHackMe profile URL (e.g., https://tryhackme.com/p/YourName) -->
+          <a class="btn" href="https://tryhackme.com/p/Jayavijay" target="_blank" rel="noopener">TryHackMe Profile ↗</a>
+        </div>
+        
+        <div class="stats">
+          <!-- TODO: Update these four numbers with your real stats -->
+          <div class="stat card"><h3 id="thm-rank">—</h3><p>Global Rank</p></div>
+          <div class="stat card"><h3 id="thm-level">—</h3><p>THM Level</p></div>
+          <div class="stat card"><h3 id="thm-rooms">—</h3><p>Completed Rooms</p></div>
+          <div class="stat card"><h3 id="thm-badges">—</h3><p>Badges Earned</p></div>
+        </div>
+      </div>
+
+      <div class="avatar card">
+        <!-- You can replace this placeholder image with your own photo or an abstract avatar -->
+        <img src="Cyber boy.png" alt="Abstract cyber image"/>
+      </div>
+    </section>
+
+    <!-- ROOMS -->
+    <section id="rooms">
+      <h3>Completed Rooms</h3>
+      <div class="grid rooms">
+        <!--
+          TODO: Replace each placeholder card below with rooms you have completed. 
+          Tip: Add a small tag for the learning path or category (e.g., Web, DFIR, Network, PrivEsc, Crypto).
+        -->
+        <article class="room card">
+          <span class="tag">Foundations</span>
+          <h4>Cyber Security 101</h4>
+          <p>Basics of cyber security, core terminology, and attack surfaces.</p>
+        </article>
+        <article class="room card">
+          <span class="tag">Network</span>
+          <h4>Intro to Networking</h4>
+          <p>OSI model, common protocols, ports, and practical packet flows.</p>
+        </article>
+        <article class="room card">
+          <span class="tag">Linux</span>
+          <h4>Linux Fundamentals</h4>
+          <p>Shell basics, permissions, processes, and service management.</p>
+        </article>
+        <article class="room card">
+          <span class="tag">Web</span>
+          <h4>OWASP Top 10</h4>
+          <p>Hands-on exploitation of the most common web app vulnerabilities.</p>
+        </article>
+        <article class="room card">
+          <span class="tag">DFIR</span>
+          <h4>Volatility / Memory Forensics</h4>
+          <p>Live response triage, process and network artifact analysis.</p>
+        </article>
+        <article class="room card">
+          <span class="tag">Privilege Esc.</span>
+          <h4>Windows PrivEsc</h4>
+          <p>Abusing misconfigurations and services to escalate privileges.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- BADGES -->
+    <section id="badges">
+      <h3>Badges</h3>
+      <div class="grid badges">
+        <!--
+          TODO: Replace images and names with your actual TryHackMe badges.
+          You can save your badge images and reference locally, or hotlink to your THM badge URLs.
+        -->
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1520975922324-c6cb5a43ee7b?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>Blue</p>
+        </div>
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1520975932190-1856bd7b8a0d?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>Advent of Cyber</p>
+        </div>
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>Web Fundamentals</p>
+        </div>
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1544198365-3c0a7f0d8a06?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>Linux</p>
+        </div>
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981d?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>Network</p>
+        </div>
+        <div class="badge card">
+          <img src="https://images.unsplash.com/photo-1520975922324-c6cb5a43ee7b?q=80&w=1200&auto=format&fit=crop" alt="Badge placeholder"/>
+          <p>DFIR</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX -->
+    <section id="skills">
+      <h3>Skills Matrix</h3>
+      <div class="skills">
+        <!--
+          TODO: Adjust the widths (style="width: __%") based on your proficiency for each skill.
+        -->
+        <div class="skill card">
+          <h4>Linux</h4>
+          <div class="bar"><span style="width:75%"></span></div>
+          <small>Command-line, processes, services, permissions</small>
+        </div>
+        <div class="skill card">
+          <h4>Windows</h4>
+          <div class="bar"><span style="width:65%"></span></div>
+          <small>AD basics, services, registry, event logs</small>
+        </div>
+        <div class="skill card">
+          <h4>Networking</h4>
+          <div class="bar"><span style="width:70%"></span></div>
+          <small>OSI, TCP/IP, routing, DNS, troubleshooting</small>
+        </div>
+        <div class="skill card">
+          <h4>Web Security</h4>
+          <div class="bar"><span style="width:60%"></span></div>
+          <small>OWASP Top 10, auth, input validation, SSRF</small>
+        </div>
+        <div class="skill card">
+          <h4>DFIR</h4>
+          <div class="bar"><span style="width:55%"></span></div>
+          <small>Memory forensics (Volatility), triage, artifacts</small>
+        </div>
+        <div class="skill card">
+          <h4>Scripting</h4>
+          <div class="bar"><span style="width:50%"></span></div>
+          <small>Python & Bash for automation</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / LINKS -->
+    <section id="contact">
+      <h3>Contact</h3>
+      <div class="card" style="padding:16px; display:grid; grid-template-columns: 1fr 1fr; gap:16px">
+        <div>
+          <p><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+          <p><strong>LinkedIn:</strong> <a href="#" target="_blank" rel="noopener">linkedin.com/in/jayavijay</a></p>
+          <p><strong>GitHub:</strong> <a href="#" target="_blank" rel="noopener">github.com/jayavijay</a></p>
+        </div>
+        <div>
+          <p><strong>Resume:</strong> <a href="#" target="_blank" rel="noopener">Download PDF</a></p>
+          <p><strong>Location:</strong> Chennai, India</p>
+          <p><strong>Availability:</strong> Open to internships & projects</p>
+        </div>
+      </div>
+      <p style="color:var(--muted); margin-top:10px">© <span id="year"></span> Jayavijay. Built with plain HTML & CSS.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      <p>Tip: Host this page on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> or <a href="https://netlify.com/" target="_blank" rel="noopener">Netlify</a>.</p>
+    </div>
+  </footer>
+
+  <!-- tiny inline script for the year only (optional; safe without JS) -->
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
